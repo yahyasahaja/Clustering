@@ -103,7 +103,6 @@ public class Clustering {
       double centroidLang = cLang / c;
       double centroidBright = cBright / c;
       double centroidConf = cConf / c;
-      // System.out.println("CENTROID " + centroidLat + " " + cLat + " " + c);
 
       for (int j = 0; j < DATA_LENGTH; j++) {
         distancesEachCluster[j] = Math.sqrt(
@@ -112,11 +111,8 @@ public class Clustering {
           + Math.pow(feature.bright[j] - centroidBright, 2)
           + Math.pow(feature.conf[j] - centroidConf, 2)
         );
-        // System.out.println(distancesEachCluster[j] + " " + Math.pow(feature.lat[j] - centroidLat, 2));
       }
     }
-    // System.out.println(Arrays.toString(distances[0]));
-    // System.out.println(Arrays.toString(distances[1]));
 
     //COMPARING FOR EACH DATA SET, SEARCH THE MINIMUM VALUE
     for (int i = 0; i < DATA_LENGTH; i++) {
