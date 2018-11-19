@@ -18,6 +18,7 @@ public class Clustering {
   public static double[] featuresHolder;
   public static int index = 0;
   public static Feature feature = new Feature();
+  public static Feature rawFeature = new Feature();
   public static double[][] distances;
   public static double totalDistances = 0;
   public static boolean[] isExist;
@@ -47,13 +48,27 @@ public class Clustering {
   }
 
   //INSERT DATA FROM FILE BASED ON IT'S FIELD
+  public static double min = 0, max = 0;
   public static void insertData(String field) {
     try (Stream<String> stream = Files.lines(Paths.get(field))) {
       index = 0;
       featuresHolder = new double[DATA_LENGTH];
-      stream.forEachOrdered(line -> featuresHolder[index++] = Double.valueOf(line));
+      double[] normalized = new double[DATA_LENGTH];
+      min = Double.MAX_VALUE; 
+      max = Double.MIN_VALUE;
+
+      stream.forEachOrdered(line -> {
+        double val = Double.valueOf(line);
+        if (val > max) max = val;
+        if (val < min) min = val;
+        featuresHolder[index++] = val;
+      });
+
+      for (int i = 0; i < DATA_LENGTH; i++) 
+        normalized[i] = (featuresHolder[i] - min) / (max - min);
       
-      feature.getClass().getField(field).set(feature, featuresHolder);
+      feature.getClass().getField(field).set(feature, normalized);
+      rawFeature.getClass().getField(field).set(rawFeature, featuresHolder);
     } catch (Exception err) {
       System.err.println(err);
     }
