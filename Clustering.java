@@ -33,7 +33,6 @@ public class Clustering {
   public static void generateRandomClusterForEachData() {
     //ENSURE ALL CLUSTERS HAVE AT LEAST ONE FEATURE
     isExist = new boolean[totalCluster];
-    int catched = 0;
     int i = 0;
 
     for (i = 0; i < totalCluster; i++) 
@@ -78,6 +77,7 @@ public class Clustering {
     System.out.println("\n\n================ ITERATION " + ++index +" ================");
     distances = new double[totalCluster][DATA_LENGTH];
     double currentTotalDistances = 0;
+    boolean isDataChanged = false;
     
     for (int i = 0; i < distances.length; i++) {
       double[] distancesEachCluster = distances[i];
@@ -124,25 +124,34 @@ public class Clustering {
         }
       }
 
+      if (clusters[i] != candidateCluster) isDataChanged = true;
       clusters[i] = candidateCluster;
       currentTotalDistances += candidateDistance;
     }  
 
     System.out.println("CLUSTERS " + Arrays.toString(clusters));
 
-    System.out.println("Total Distances: " + currentTotalDistances);
-    System.out.println("Old Total Distances: " + totalDistances);
+    if (isDataChanged) {
+      System.out.println("Total Distances: " + currentTotalDistances);
+      System.out.println("Old Total Distances: " + totalDistances);
+    }
+    
     double f = Math.abs(totalDistances - currentTotalDistances);
     totalDistances = currentTotalDistances;
 
     //FINISHING
-    if (f > threshold) {
+    if (f > threshold && isDataChanged) {
       System.out.println("|Total Distances| > threshold");
       System.out.println(f + " > " + threshold);
+      System.out.println("Is Data Changed? " + (isDataChanged ? "Yes" : "No"));
       calculate();
     } else {
-      System.out.println("|Total Distances| < threshold");
-      System.out.println(f + " < " + threshold);
+      if (isDataChanged) {
+        System.out.println("|Total Distances| < threshold");
+        System.out.println(f + " < " + threshold);
+      }
+      
+      System.out.println("Is Data Changed? " + (isDataChanged ? "Yes" : "No"));
       System.out.println("\n\n================ FINISH ================");
       System.out.println("Last Cluster: " + Arrays.toString(clusters));
     }
