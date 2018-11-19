@@ -1,4 +1,4 @@
-#CLUSTERING
+## CLUSTERING
 
-##USAGE
-- javac Clustering.java && java Clustering 
+### USAGE
+- `javac Clustering.java && java Clustering`
