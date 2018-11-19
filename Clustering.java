@@ -52,9 +52,7 @@ public class Clustering {
     try (Stream<String> stream = Files.lines(Paths.get(field))) {
       index = 0;
       featuresHolder = new double[DATA_LENGTH];
-      stream.forEachOrdered(line -> {
-        featuresHolder[index++] = Double.valueOf(line);
-      });
+      stream.forEachOrdered(line -> featuresHolder[index++] = Double.valueOf(line));
       
       feature.getClass().getField(field).set(feature, featuresHolder);
     } catch (Exception err) {
