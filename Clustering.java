@@ -12,7 +12,7 @@ public class Clustering {
   }
 
   public static final int DATA_LENGTH = 49;
-  public static double treshold = 0;
+  public static double threshold = 0;
   public static int totalCluster = 0;
   public static int[] clusters; //cluster for each data
   public static double[] featuresHolder;
@@ -138,13 +138,13 @@ public class Clustering {
     totalDistances = currentTotalDistances;
 
     //FINISHING
-    if (f > treshold) {
-      System.out.println("|Total Distances| > treshold");
-      System.out.println(f + " > " + treshold);
+    if (f > threshold) {
+      System.out.println("|Total Distances| > threshold");
+      System.out.println(f + " > " + threshold);
       calculate();
     } else {
-      System.out.println("|Total Distances| < treshold");
-      System.out.println(f + " < " + treshold);
+      System.out.println("|Total Distances| < threshold");
+      System.out.println(f + " < " + threshold);
       System.out.println("\n\n================ FINISH ================");
       System.out.println("Last Cluster: " + Arrays.toString(clusters));
     }
@@ -169,8 +169,8 @@ public class Clustering {
         showAllData();
       else if (n == 2) {
         //BEGIN
-        System.out.print("Masukkan treshold: ");
-        treshold = in.nextDouble();
+        System.out.print("Masukkan threshold: ");
+        threshold = in.nextDouble();
         System.out.print("Masukkan jumlah cluster: ");
         //instantiate new clusters and it's length
         totalCluster = in.nextInt();
