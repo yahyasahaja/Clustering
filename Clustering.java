@@ -1,9 +1,6 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Stream;
-import java.lang.reflect.Field;
 
 public class Clustering {
   //INIT
@@ -23,28 +20,28 @@ public class Clustering {
   public static Feature feature = new Feature();
   public static double[][] distances;
   public static double totalDistances = 0;
+  public static boolean[] isExist;
+
+  //GET UNIQUE RANDOM
+  public static int getUniqueRandomValue() {
+    int rand = (int) (Math.random() * totalCluster);
+    if (!isExist[rand]) return rand;
+    return getUniqueRandomValue();
+  }
 
   //RANDOM VALUE FOR EACH DATA
   public static void generateRandomClusterForEachData() {
     //ENSURE ALL CLUSTERS HAVE AT LEAST ONE FEATURE
-    boolean[] isExist = new boolean[totalCluster];
+    isExist = new boolean[totalCluster];
+    int catched = 0;
+    int i = 0;
 
-    for (int i = 0; i < clusters.length; i++) {
+    for (i = 0; i < totalCluster; i++) 
+      isExist[clusters[i] = getUniqueRandomValue()] = true;
+
+    for (; i < DATA_LENGTH; i++) {
       int rand = (int) (Math.random() * totalCluster);
       clusters[i] = rand;
-      
-      boolean isForced = false;
-      if (i >= totalCluster - 1) {
-        for (int j = 0; j < isExist.length; j++) {
-          if (!isExist[j]) {
-            clusters[i] = j;
-            isExist[j] = true;
-            isForced = true;
-            break;
-          } 
-        }
-      }
-      if (!isForced) isExist[rand] = true;
     }
 
     System.out.println("Generated Random Clusters: " + Arrays.toString(clusters));
@@ -152,8 +149,8 @@ public class Clustering {
     } else {
       System.out.println("|Total Distances| < treshold");
       System.out.println(f + " < " + treshold);
-      System.out.println("FINISH");
-      System.out.println(Arrays.toString(clusters));
+      System.out.println("\n\n================ FINISH ================");
+      System.out.println("Last Cluster: " + Arrays.toString(clusters));
     }
   }
 
