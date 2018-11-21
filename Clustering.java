@@ -82,6 +82,13 @@ public class Clustering {
   }
 
   public static void showAllData() {
+    System.out.println("\n\n================ RAW DATA ================");
+    System.out.printf("\nLangitude: %s\n", Arrays.toString(rawFeature.lat));
+    System.out.printf("\nLongitude: %s\n", Arrays.toString(rawFeature.lang));
+    System.out.printf("\nBrightness: %s\n", Arrays.toString(rawFeature.bright));
+    System.out.printf("\nConfidence: %s\n", Arrays.toString(rawFeature.conf));
+
+    System.out.println("\n\n================ NORMALIZED ================");
     System.out.printf("\nLangitude: %s\n", Arrays.toString(feature.lat));
     System.out.printf("\nLongitude: %s\n", Arrays.toString(feature.lang));
     System.out.printf("\nBrightness: %s\n", Arrays.toString(feature.bright));
